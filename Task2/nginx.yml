@@ -1,0 +1,25 @@
+---
+- name: Install and Configure Nginx
+  hosts: azure
+  become: yes
+
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Verify nginx
+      command: systemctl is-active nginx
+      register: nginx_status
+
+    - debug:
+        var: nginx_status.stdout
