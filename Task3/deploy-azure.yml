@@ -1,0 +1,16 @@
+---
+- name: Deploy Azure Page
+  hosts: azure
+  become: yes
+
+  tasks:
+
+    - name: Copy Azure page
+      copy:
+        src: index-azure.html
+        dest: /var/www/html/index.html
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
