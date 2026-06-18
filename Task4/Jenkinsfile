@@ -9,7 +9,7 @@ pipeline {
             steps {
 
                 sh '''
-                scp -o StrictHostKeyChecking=no TASK3/index-azure.html azureuser@13.72.86.150:/tmp/index.html
+                scp -o StrictHostKeyChecking=no Task3/index-azure.html azureuser@13.72.86.150:/tmp/index.html
 
                 ssh -o StrictHostKeyChecking=no azureuser@13.72.86.150 \
                 sudo mv /tmp/index.html /var/www/html/index.html
