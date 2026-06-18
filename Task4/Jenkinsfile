@@ -1,0 +1,31 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Deploy Azure Page') {
+
+            steps {
+
+                sh '''
+                scp -o StrictHostKeyChecking=no TASK3/index-azure.html azureuser@13.72.86.150:/tmp/index.html
+
+                ssh -o StrictHostKeyChecking=no azureuser@13.72.86.150 \
+                sudo mv /tmp/index.html /var/www/html/index.html
+                '''
+            }
+        }
+
+        stage('Restart Nginx') {
+
+            steps {
+
+                sh '''
+                ssh -o StrictHostKeyChecking=no azureuser@13.72.86.150 \
+                sudo systemctl restart nginx
+                '''
+            }
+        }
+    }
+}
